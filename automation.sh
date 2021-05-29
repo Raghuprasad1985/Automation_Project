@@ -76,3 +76,25 @@ s3://${raghuprasadS3Bucket}/${fileName}.tar
 
 #End of TAR file upload to S3 bucket
 
+#To log file upload details Inventory.html for Book Keeping
+
+fileSize=$(ls -sh $fileName.tar | awk '{print $1}')
+
+cd /var/www/html
+pwd
+
+inventoryFile="inventory.html"
+
+if [ -e $inventoryFile ]; then
+        echo "File already exists"
+else
+        echo "Creating a file"
+        sudo touch $inventoryFile
+        sudo chmod 777 $inventoryFile -R
+        printf "%s\n"  "Log Type        Time Created            Type    Size" > $inventoryFile
+fi
+
+printf "%s\n"  "httpd-logs      $(date '+%d%m%Y-%H%M%S')                tar     ${fileSize}" >> $inventoryFile
+
+
+#End of Book Keeping
