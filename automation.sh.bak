@@ -117,7 +117,7 @@ if [ $checkForCronJob == ""]; then
         #echo $cronFileName | sudo crontab
         (echo "$new_job") | sort - | uniq - | sudo  crontab -
 else
-        echo "Cron job alread exists" 
+        echo "Cron job alread exists"
 fi
 
 #End of Cron Job creation
